@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chris - Professional Web Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#050505;
+    --bg2:#0a1a3a;
+    --text:#fff;
+    --text2:#aaa;
+    --card:rgba(255,255,255,0.05);
+    --border:rgba(255,255,255,0.1);
+    --accent:#00d4ff;
+  }
+
+  [data-theme="light"]{
+    --bg:#f5f7fa;
+    --bg2:#dbeafe;
+    --text:#111;
+    --text2:#555;
+    --card:rgba(0,0,0,0.03);
+    --border:rgba(0,0,0,0.1);
+    --accent:#0066ff;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;transition:background 0.3s,color 0.3s;}
+  body{background:var(--bg);color:var(--text);overflow-x:hidden;}
+
+.bg{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(45deg,var(--bg),var(--bg2),var(--bg));background-size:400% 400%;animation:bgMove 15s ease infinite;z-index:-2;}
+  @keyframes bgMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+  nav{position:fixed;top:0;width:100%;padding:20px 10%;background:rgba(0,0,0,0.2);backdrop-filter:blur(15px);display:flex;justify-content:space-between;align-items:center;z-index:1000;}
+  [data-theme="light"] nav{background:rgba(255,255,255,0.5);}
+  nav b{color:var(--accent);font-size:1.3rem;}
+  nav a{color:var(--text);text-decoration:none;margin-left:25px;font-weight:500;}
+  nav a:hover{color:var(--accent);}
+.theme-toggle{background:var(--card);border:1px solid var(--border);color:var(--text);padding:10px 14px;border-radius:50px;cursor:pointer;font-size:1.2rem;}
+.theme-toggle:hover{background:var(--accent);color:#000;}
+
+  section{padding:120px 10%;min-height:100vh;display:flex;align-items:center;opacity:0;transform:translateY(50px);transition:1s;}
+  section.show{opacity:1;transform:translateY(0);}
+  h2{font-size:2.8rem;margin-bottom:50px;text-align:center;}
+
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+.hero h1{font-size:3.5rem;font-weight:800;line-height:1.1;}
+.hero h1 span{color:var(--accent);}
+.typing{color:var(--accent);border-right:3px solid var(--accent);animation:blink 0.7s infinite;}
+  @keyframes blink{50%{border-color:transparent}}
+.hero p{font-size:1.2rem;color:var(--text2);margin:20px 0 30px;}
+.btn-group{display:flex;gap:15px;flex-wrap:wrap;}
+.btn{background:var(--accent);color:#000;padding:16px 35px;border-radius:10px;text-decoration:none;font-weight:700;display:inline-block;transition:0.3s;}
+.btn:hover{transform:scale(1.05);box-shadow:0 0 30px var(--accent);}
+.btn-whatsapp{background:#25D366;color:white;}
+.btn-whatsapp:hover{box-shadow:0 0 30px #25D366;}
+
+.photo-wrap{position:relative;display:flex;justify-content:center;align-items:center;}
+.photo{width:380px;height:380px;border-radius:30px;object-fit:cover;border:4px solid var(--accent);box-shadow:0 0 40px rgba(0,212,255,0.4);}
+
+.stats{display:flex;gap:40px;margin-top:40px;}
+.stat h3{font-size:2.5rem;color:var(--accent);}
+.stat p{color:var(--text2);font-size:0.9rem;}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px;}
+.card{background:var(--card);padding:40px;border-radius:20px;border:1px solid var(--border);backdrop-filter:blur(10px);transition:0.4s;}
+.card:hover{transform:translateY(-15px);border-color:var(--accent);}
+
+/* SKILLS BARS */
+.skill-bar{height:100%;background:var(--accent);width:0;border-radius:10px;transition:width 1.5s ease;}
+
+/* PRICING */
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;max-width:1200px;margin:auto;}
+.pricing-card{background:var(--card);padding:40px;border-radius:20px;border:2px solid var(--border);backdrop-filter:blur(10px);text-align:center;transition:0.4s;position:relative;}
+.pricing-card:hover{transform:translateY(-15px);border-color:var(--accent);}
+.pricing-card.popular{border-color:var(--accent);box-shadow:0 0 30px rgba(0,212,255,0.3);}
+.popular-badge{position:absolute;top:-15px;left:50%;transform:translateX(-50%);background:var(--accent);color:#000;padding:5px 20px;border-radius:20px;font-size:0.8rem;font-weight:700;}
+.price{font-size:3rem;font-weight:800;color:var(--accent);margin:20px 0;}
+.price span{font-size:1rem;color:var(--text2);font-weight:400;}
+.pricing-features{list-style:none;text-align:left;margin:30px 0;}
+.pricing-features li{padding:10px 0;color:var(--text2);border-bottom:1px solid var(--border);}
+.pricing-features li:before{content:"✓ ";color:var(--accent);font-weight:700;margin-right:8px;}
+
+/* FAQ */
+.faq-container{max-width:900px;margin:0 auto;}
+.faq-item{background:var(--card);border:1px solid var(--border);border-radius:15px;margin-bottom:20px;overflow:hidden;transition:0.3s;}
+.faq-item:hover{border-color:var(--accent);}
+.faq-question{padding:25px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:1.1rem;}
+.faq-question:hover{color:var(--accent);}
+.faq-icon{font-size:1.5rem;transition:0.3s;}
+.faq-item.active .faq-icon{transform:rotate(45deg);}
+.faq-answer{max-height:0;overflow:hidden;transition:max-height 0.4s ease;}
+.faq-answer p{padding:0 25px 25px;color:var(--text2);line-height:1.7;}
+.faq-item.active .faq-answer{max-height:300px;}
+
+.testimonials{background:rgba(0,0,0,0.02);}
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;}
+.testi-card{background:var(--card);padding:30px;border-radius:20px;border-left:4px solid var(--accent);backdrop-filter:blur(10px);}
+.testi-card p{color:var(--text2);font-style:italic;line-height:1.7;margin-bottom:20px;}
+.testi-author h4{color:var(--text);}
+.testi-author span{color:var(--text2);font-size:0.9rem;}
+
+/* LIVE CHAT WIDGET */
+.chat-widget{position:fixed;bottom:30px;right:30px;z-index:9999;}
+.chat-bubble{background:#25D366;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 0 20px rgba(37,211,102,0.5);animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+.chat-bubble svg{width:30px;height:30px;fill:white;}
+.chat-popup{position:absolute;bottom:80px;right:0;background:var(--card);padding:15px 20px;border-radius:15px;border:1px solid var(--border);backdrop-filter:blur(10px);width:220px;display:none;box-shadow:0 10px 30px rgba(0,0,0,0.3);}
+.chat-popup.show{display:block;animation:fadeIn 0.3s;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.chat-popup p{color:var(--text);margin-bottom:10px;font-size:0.95rem;}
+.chat-popup a{background:#25D366;color:white;padding:10px 15px;border-radius:8px;text-decoration:none;display:block;text-align:center;font-weight:600;}
+
+  @media(max-width:900px){
+.hero{grid-template-columns:1fr;text-align:center;}
+.photo{width:280px;height:280px;}
+.chat-widget{bottom:20px;right:20px;}
+  }
+</style>
+</head>
+<body>
+<div class="bg"></div>
+
+  <nav>
+    <b>Chris.dev</b>
+    <div style="display:flex;align-items:center;">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#skills">Skills</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a href="#testimonials">Reviews</a>
+      <a href="#contact">Contact</a>
+      <button class="theme-toggle" id="themeToggle">🌙</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="home" class="hero">
+    <div>
+      <h1>Hi, I'm <span>Chris</span><br><span class="typing" id="typing"></span></h1>
+      <p>I build fast, modern, and beautiful websites that help businesses grow online. Based in Kampala.</p>
+      <div class="btn-group">
+        <a href="#pricing" class="btn">View Prices</a>
+        <a href="https://wa.me/256745536205" target="_blank" class="btn btn-whatsapp">WhatsApp Me</a>
+      </div>
+      <div class="stats">
+        <div class="stat"><h3 id="stat1">0</h3><p>Projects Done</p></div>
+        <div class="stat"><h3 id="stat2">0</h3><p>Happy Clients</p></div>
+        <div class="stat"><h3 id="stat3">0</h3><p>Years Experience</p></div>
+      </div>
+    </div>
+    <div class="photo-wrap">
+      <img src="me.jpeg" alt="Chris" class="photo">
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div style="text-align:center;width:100%;">
+      <h2>About Me</h2>
+      <p style="color:var(--text2);line-height:1.8;font-size:1.1rem;max-width:800px;margin:auto;">
+        I'm Chris, a passionate web developer. I turn ideas into clean, responsive, and high-performance websites.
+      </p>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div style="width:100%;">
+      <h2>What I Do</h2>
+      <div class="cards">
+        <div class="card"><h3>Web Development</h3><p style="color:var(--text2);">Custom websites with HTML, CSS, JavaScript, React</p></div>
+        <div class="card"><h3>UI/UX Design</h3><p style="color:var(--text2);">Clean designs in Figma that convert visitors to customers</p></div>
+        <div class="card"><h3>E-Commerce</h3><p style="color:var(--text2);">Online stores with payments and inventory</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div style="width:100%;">
+      <h2>My Skills</h2>
+      <div style="max-width:800px;margin:auto;">
+        <div style="margin-bottom:25px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+            <span style="font-weight:600;">HTML</span><span style="color:var(--accent);">95%</span>
+          </div>
+          <div style="background:var(--card);height:12px;border-radius:10px;overflow:hidden;">
+            <div class="skill-bar" data-width="95%"></div>
+          </div>
+        </div>
+        <div style="margin-bottom:25px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+            <span style="font-weight:600;">CSS</span><span style="color:var(--accent);">90%</span>
+          </div>
+          <div style="background:var(--card);height:12px;border-radius:10px;overflow:hidden;">
+            <div class="skill-bar" data-width="90%"></div>
+          </div>
+        </div>
+        <div style="margin-bottom:25px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+            <span style="font-weight:600;">JavaScript</span><span style="color:var(--accent);">85%</span>
+          </div>
+          <div style="background:var(--card);height:12px;border-radius:10px;overflow:hidden;">
+            <div class="skill-bar" data-width="85%"></div>
+          </div>
+        </div>
+        <div style="margin-bottom:25px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+            <span style="font-weight:600;">React</span><span style="color:var(--accent);">80%</span>
+          </div>
+          <div style="background:var(--card);height:12px;border-radius:10px;overflow:hidden;">
+            <div class="skill-bar" data-width="80%"></div>
+          </div>
+        </div>
+        <div style="margin-bottom:25px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+            <span style="font-weight:600;">Figma</span><span style="color:var(--accent);">90%</span>
+          </div>
+          <div style="background:var(--card);height:12px;border-radius:10px;overflow:hidden;">
+            <div class="skill-bar" data-width="90%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING PACKAGES -->
+  <section id="pricing">
+    <div style="width:100%;">
+      <h2>Pricing Packages</h2>
+      <p style="text-align:center;color:var(--text2);margin-bottom:50px;">Affordable prices to get you online fast 🚀</p>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3>Basic</h3>
+          <div class="price">$49<span>/one time</span></div>
+          <ul class="pricing-features">
+            <li>1 Page Website</li><li>Mobile Responsive</li><li>Contact Form</li><li>2 Revisions</li><li>3 Days Delivery</li>
+          </ul>
+          <a href="https://wa.me/256745536205" target="_blank" class="btn">Get Started</a>
+        </div>
+
+        <div class="pricing-card popular">
+          <div class="popular-badge">MOST POPULAR</div>
+          <h3>Standard</h3>
+          <div class="price">$99<span>/one time</span></div>
+          <ul class="pricing-features">
+            <li>5 Pages Website</li><li>Mobile Responsive</li><li>Contact Form + WhatsApp</li><li>Basic SEO</li><li>5 Revisions</li><li>7 Days Delivery</li>
+          </ul>
+          <a href="https://wa.me/256745536205" target="_blank" class="btn">Get Started</a>
+        </div>
+
+        <div class="pricing-card">
+          <h3>Premium</h3>
+          <div class="price">$199<span>/one time</span></div>
+          <ul class="pricing-features">
+            <li>10 Pages Website</li><li>E-Commerce Store</li><li>Payment Integration</li><li>Advanced SEO</li><li>Unlimited Revisions</li><li>14 Days Delivery</li>
+          </ul>
+          <a href="https://wa.me/256745536205" target="_blank" class="btn">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section id="faq">
+    <div style="width:100%;">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-container">
+        <div class="faq-item">
+          <div class="faq-question"><span>How long does a website take?</span><span class="faq-icon">+</span></div>
+          <div class="faq-answer"><p>Basic 1-page site: 3 Days. Standard 5-page site: 7 Days. Premium E-commerce: 14 Days. I work fast but I never rush quality.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question"><span>Do you offer revisions?</span><span class="faq-icon">+</span></div>
+          <div class="faq-answer"><p>Yes! Basic package gets 2 revisions, Standard gets 5 revisions, and Premium gets unlimited revisions until you're 100% happy.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question"><span>How do I pay you?</span><span class="faq-icon">+</span></div>
+          <div class="faq-answer"><p>I accept Mobile Money, Bank Transfer, and PayPal. We do 50% upfront to start and 50% when the website is done and you're happy.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question"><span>Will my website work on mobile?</span><span class="faq-icon">+</span></div>
+          <div class="faq-answer"><p>100% Yes. Every website I build is fully mobile responsive. It will look perfect on phones, tablets, and computers.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question"><span>Do you help after the website is done?</span><span class="faq-icon">+</span></div>
+          <div class="faq-answer"><p>Yes! I offer 1 month free support. If anything breaks or you need small changes, I’ve got you. We can also do monthly maintenance.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials" class="testimonials">
+    <div style="width:100%;">
+      <h2>What Clients Say</h2>
+      <div class="testi-grid">
+        <div class="testi-card"><p>"Chris built our site in 5 days. Looks amazing! Our customers love it and sales went up."</p><div class="testi-author"><h4>Sarah</h4><span>Kampala Boutique</span></div></div>
+        <div class="testi-card"><p>"Professional, fast, and great communication. Chris delivered exactly what we wanted."</p><div class="testi-author"><h4>David Mukasa</h4><span>Tech Solutions UG</span></div></div>
+        <div class="testi-card"><p>"Best web developer in Kampala. Clean code, modern design, and available on WhatsApp anytime."</p><div class="testi-author"><h4>Grace N.</h4><span>Freelance Designer</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" style="text-align:center;">
+    <div style="width:100%;">
+      <h2>Let's Work Together</h2>
+      <p style="color:var(--text2);margin-bottom:30px;">Have a project? Let's build it.</p>
+      <div class="btn-group" style="justify-content:center;">
+        <a href="mailto:christaylor6543@gmail.com" class="btn">Email Chris</a>
+        <a href="https://wa.me/256745536205" target="_blank" class="btn btn-whatsapp">Chat on WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIVE CHAT WIDGET -->
+  <div class="chat-widget">
+    <div class="chat-popup" id="chatPopup"><p>Hey! Need a website? 👋</p><a href="https://wa.me/256745536205" target="_blank">Chat with me</a></div>
+    <div class="chat-bubble" id="chatBubble"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2.9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></div>
+  </div>
+
+<script>
+// THEME TOGGLE
+const toggle = document.getElementById('themeToggle');
+const body = document.documentElement;
+const savedTheme = localStorage.getItem('theme') || 'dark';
+body.setAttribute('data-theme', savedTheme);
+toggle.innerHTML = savedTheme === 'dark'? '🌙' : '☀️';
+toggle.onclick = () => {
+  const currentTheme = body.getAttribute('data-theme');
+  const newTheme = currentTheme === 'dark'? 'light' : 'dark';
+  body.setAttribute('data-theme', newTheme);
+  localStorage.setItem('theme', newTheme);
+  toggle.innerHTML = newTheme === 'dark'? '🌙' : '☀️';
+}
+
+// TYPING EFFECT
+const texts = ["Web Developer", "UI Designer", "Freelancer"];
+let i=0, j=0, isDeleting=false;
+function type(){
+  const el = document.getElementById('typing');
+  if(!isDeleting && j <= texts[i].length) el.innerHTML = texts[i].substring(0,j++);
+  else if(isDeleting && j >= 0) el.innerHTML = texts[i].substring(0,j--);
+  if(j === texts[i].length){isDeleting=true;setTimeout(type,1500);return;}
+  if(j === 0){isDeleting=false;i=(i+1)%texts.length;}
+  setTimeout(type, isDeleting? 100 : 150);
+}
+type();
+
+// SCROLL ANIMATION
+const sections = document.querySelectorAll('section');
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{if(entry.isIntersecting) entry.target.classList.add('show');});
+},{threshold:0.2});
+sections.forEach(s=>observer.observe(s));
+
+// COUNTER
+function countUp(id, target){
+  let count=0;const el = document.getElementById(id);
+  const interval = setInterval(()=>{count++;el.innerHTML = count + '+';if(count >= target) clearInterval(interval);}, 80);
+}
+setTimeout(()=>{countUp('stat1',50);countUp('stat2',35);countUp('stat3',3);},1000);
+
+// ANIMATE SKILL BARS
+const skillBars = document.querySelectorAll('.skill-bar');
+const skillObserver = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      const bar = entry.target;
+      bar.style.width = bar.getAttribute('data-width');
+    }
+  });
+},{threshold:0.5});
+skillBars.forEach(bar=>skillObserver.observe(bar));
+
+// FAQ ACCORDION
+document.querySelectorAll('.faq-question').forEach(question => {
+  question.addEventListener('click', () => {
+    const item = question.parentElement;
+    item.classList.toggle('active');
+  });
+});
+
+// LIVE CHAT WIDGET
+const chatBubble = document.getElementById('chatBubble');
+const chatPopup = document.getElementById('chatPopup');
+chatBubble.onclick = () => {
+  chatPopup.classList.toggle('show');
+}
+setTimeout(()=>{chatPopup.classList.add('show');}, 3000);
+</script>
+</body>
+</html>
